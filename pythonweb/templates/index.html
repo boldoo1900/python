@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}Index page{% endblock %}
+{% block css %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="assets/css/news-slider.css" />
+    <style rel="stylesheet">
+
+        .container {
+            width: 700px;
+            height: auto;
+
+            position: absolute;
+            top:140px; bottom: 0; left: 0; right: 0;
+            margin: auto;
+        }
+
+        *, *:before, *:after { -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; }
+        .small-image { width: 80px; height: 50px; }
+
+    </style>
+{% endblock %}
+
+{% block javascript %}
+    {{ super() }}
+    <script src="assets/js/jquery-ui-tabs-rotate.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            $("#featured").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 5000, true);
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <div class="alert alert-success">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+              </div>
+          {% endif %}
+        {% endwith %}
+
+        <div id="featured" >
+		  <ul class="ui-tabs-nav">
+
+            {% for row in tData %}
+                <li class="ui-tabs-nav-item" id="nav-fragment-{{ loop.index }}"><a href="#fragment-{{ loop.index }}"><img src="{{ row[4] }}" class="small-image" alt="" /><span>{{ cutnews(row[1], 0, 50) }}</span></a></li>
+            {% endfor %}
+	      </ul>
+
+        {% for row in tData %}
+            <div id="fragment-{{ loop.index }}" class="ui-tabs-panel" style="">
+                {% if row[4]|length != 0 %}
+                    <img src="{{ row[4] }}" alt="IMAGE"  />
+                {% else %}
+                    <img src="assets/images/no-image.png" width="400" height="250" alt="IMAGE" />
+                {% endif %}
+
+                 <div class="info" >
+                    <h2><a href="/news/{{ row[0] }}" >{{ cutnews(row[1], 0, 150) }}</a></h2>
+                 </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block title %}Routes{% endblock %}
+{% block css %}
+{{ super() }}
+<style rel="stylesheet">
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<section class="ftco-section ftco-bread">
+    <div class="container">
+        <div class="row no-gutters slider-text justify-content-center align-items-center">
+            <div class="col-md-8 ftco-animate">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Routes</span></p>
+                <h1 class="bread">Bus stops</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-lg-8">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Stop name</th>
+                        <th scope="col">latitude</th>
+                        <th scope="col">longitude</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for row in stops %}
+                            <tr>
+                                <td>{{ row["stop_id"] }}</td>
+                                <td>{{ row["stop_name"] }}</td>
+                                <td>{{ row["stop_lat"] }}</td>
+                                <td>{{ row["stop_lon"] }}</td>
+                                <td><a href="./nearest?stop_id={{ row['stop_id'] }}" >nearest stations</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-lg-4 sidebar ftco-animate bg-light">
+                <div class="sidebar-box">
+                    <form action="#" class="search-form">
+                        <div class="form-group">
+                            <span class="icon icon-search"></span>
+                            <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+                        </div>
+                    </form>
+                </div>
+                <div class="sidebar-box ftco-animate">
+                    <h3 class="sidebar-heading">Routes</h3>
+                    <ul class="categories">
+                        {% for row in routes %}
+                        <li>
+                            <a href="stops?route_id={{ row['route_id'] }}">{{ row['route_short_name'] }}
+                                <span>(6)</span></a></li>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="sidebar-box ftco-animate">
+                    <h3 class="sidebar-heading">Paragraph</h3>
+                    <p> Here is currently registered station information will be shown. </p>
+                </div>
+            </div><!-- END COL -->
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+{{ super() }}
+<script type="text/javascript">
+
+</script>
+{% endblock %}

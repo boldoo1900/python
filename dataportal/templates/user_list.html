@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}Users{% endblock %}
+{% block css %}
+{{ super() }}
+<style rel="stylesheet">
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<section class="ftco-section ftco-bread">
+    <div class="container">
+        <div class="row no-gutters slider-text justify-content-center align-items-center">
+            <div class="col-md-8 ftco-animate">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Users</span></p>
+                <h1 class="bread">Users</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <div class="alert alert-success">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+              </div>
+          {% endif %}
+        {% endwith %}
+
+        <div class="row d-flex">
+            <div class="col-lg-12">
+                <a href="/user?action=add" class="btn btn-primary">&nbsp;&nbsp;New&nbsp;&nbsp;</a><br><br>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">username</th>
+                        <th scope="col">first name</th>
+                        <th scope="col">last name</th>
+                        <th scope="col">mail</th>
+                        <th scope="col">address</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in users %}
+                            <tr>
+                                <td>{{ row["user_id"] }}</td>
+                                <td>{{ row["username"] }}</td>
+                                <td>{{ row["first_name"] }}</td>
+                                <td>{{ row["last_name"] }}</td>
+                                <td>{{ row["mail"] }}</td>
+                                <td>{{ row["address"] }}</td>
+                                <td align="center">
+                                    <a href="./user?action=edit&user_id={{ row['user_id'] }}" ><img src="assets/images/edit.png" /></a>&nbsp;&nbsp;
+                                    <a href="./user?action=delete&user_id={{ row['user_id'] }}" ><img src="assets/images/delete.png" /></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table><br><br><br><br><br><br>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+{{ super() }}
+<script type="text/javascript">
+
+</script>
+{% endblock %}

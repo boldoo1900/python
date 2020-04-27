@@ -1,0 +1,20 @@
+
+Your registration is successfully saved.
+
+Activate your account using following link
+%ACTIVATION_LINK%
+
+mail address:   %MAIL_ADDRESS%
+your name:      %FIRSTNAME%
+
+registered date:     %REGISTRATION_DATE%
+
+
+this is automated mail do not reply
+---------------------------------------------------
+test.   python.com
+phone:  xxxxx.xxx.xxxx
+mail:   boldoo_mn.dot1900@yahoo.com
+---------------------------------------------------
+
+

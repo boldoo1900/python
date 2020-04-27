@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}Index page{% endblock %}
+{% block css %}
+    {{ super() }}
+    <style rel="stylesheet">
+        .container {
+            width: 700px;
+            height: auto;
+
+            position: absolute;
+            top:140px; bottom: 0; left: 0; right: 0;
+            margin: auto;
+        }
+
+        .news-div {
+                height: 145px;
+                border-bottom: 3px dotted #999999;
+                margin-bottom: 10px;
+        }
+        .m-left { float:left; width: 20%; height: 90px; margin-top: 15px; }
+        .m-right { float:left; width: 65%; height: auto;  }
+        .control-btn { float: left; width: 13%; text-align: right; margin-top: 20px; }
+    </style>
+{% endblock %}
+
+{% block javascript %}
+    {{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+      {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <div class="alert alert-success">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+              </div>
+          {% endif %}
+      {% endwith %}
+
+        {% if is_admin == True %}
+            <div style="margin: 20px 0 20px 0;"><button type="button" name="addnews" onclick="window.location.href='/newsadd'">Add News</button></div>
+        {% endif %}
+        {% for row in tData %}
+            <div class="news-div">
+                <div class="m-left">
+                    {% if row[4]|length != 0  %}
+                        <img src="{{ row[4] }}" alt="No Picture" height="80" width="100">
+                    {% else %}
+                        <img src="assets/images/no-image.png" alt="No Picture" height="80" width="100">
+                    {% endif %}
+                </div>
+                <div class="m-right">
+                    <div><a href="/news/{{ row[0] }}" style="text-decoration: none;"><b>{{ row[1] }}</b></a></div>
+                    <div><p>{{ cutnews(row[2],0,150) }}<a href="/news/{{ row[0] }}">more</a></p></div>
+                    <div style="color:#269abc;">{{ row[3] }}</div>
+                </div>
+
+                {% if is_admin == True %}
+                <div class="control-btn">
+                    <a href="#"><img src="assets/images/edit.png"></a>&nbsp;&nbsp;
+                    <a href="#"><img src="assets/images/delete.png"></a>
+                </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+

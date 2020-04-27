@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+
+{% block title %}Index page{% endblock %}
+{% block css %}
+    {{ super() }}
+    <!--<link rel="stylesheet" href="/assets/css/message.css" type="text/css">-->
+    <style rel="stylesheet">
+        .container {
+            width: 600px;
+            padding-top: 120px;
+        }
+
+        .mborder  { border-bottom: 3px dotted #999999; margin-bottom: 10px; }
+        .comment-box { width: 90%; height: auto; margin-left: 5%; }
+
+    </style>
+{% endblock %}
+
+{% block javascript %}
+    {{ super() }}
+<script type="text/javascript">
+
+    function fncadd()
+    {
+        if($.trim($("#commentbox").val()).length === 0){
+            alert("fill your comment!!!.")
+            return false;
+        }
+
+        $.ajax({
+           type: 'POST',
+           url: '/commentadd',
+           data: { news_id: '{{ news_id }}', user_id: '{{ user_id }}', comment: $("#commentbox").val() },
+           error: function() { alert("ERROR!!!") },
+           dataType: 'json',
+           async: false,
+           success: function(data) {
+
+              var name = $("#name").val();
+              var txt = $("#commentbox").val();
+              var deletebtn = '';
+              {% if is_admin == True %}
+                deletebtn = '<td rowspan="2" class="text-right">&nbsp;&nbsp;<a onclick="fncdelete(\''+data[0].comment_id+'\')"><img src="../assets/images/delete.png"></a></td>';
+              {% endif %}
+              $("#commnetTable").append('<tr class="rowid-'+data[0].comment_id+'"><td>'+name+'</td><td class="text-right">'+data[0].date+'</td>'+deletebtn+'</tr>'+
+                                        '<tr class="rowid-'+data[0].comment_id+'"><td colspan="2" style="border-bottom: 1px dotted #101010;">'+txt+'</td></tr>');
+
+              $("#commentbox").val('');
+              $("#rowcount").html(($('#commnetTable tr').length/2));
+           }
+        });
+    }
+
+    function fncdelete(id)
+    {
+        if (confirm("Are you sure want to delete?") == true) {
+            $.ajax({
+               type: 'POST',
+               url: '/commentdelete',
+               data: { comment_id: id },
+               error: function() { alert("ERROR!!!") },
+               dataType: 'json',
+               async: false,
+               success: function(data) {
+
+                  $(".rowid-"+id).animate( {backgroundColor:'#E0EEEE'}, 500).fadeOut(700,function(){
+                        $(".rowid-"+id).remove();
+                        $("#rowcount").html(($('#commnetTable tr').length/2));
+                  });
+
+               }
+            });
+        }
+    }
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <!-- NEWS SECTION --------------------------------------------------------------------------------------------->
+        {% if more_data is defined %}
+            <div class="row mborder">
+                <div class="col-md-12"><h2>{{ more_data[0][1] }}</h2></div>
+                <div style="color: #269abc;">{{ more_data[0][3] }}</div><br>
+                {% if more_data[0][4]|length != 0 %}
+                    <div style="text-align: center; "><img src="../{{ more_data[0][4] }}" style="max-height: 250px;" alt="NEWS IMAGE" /></div>
+                {% else %}
+                    <div style="text-align: center; "><img src="../assets/images/no-image.png" style="max-height: 250px;" alt="NEWS IMAGE" /></div>
+                {% endif %}
+                <br><div><p>{{ more_data[0][2] }}</p></div>
+            </div>
+        {% endif %}
+
+        <div class="alert alert-warning">
+            Site will not responsible for wicked comments<br>
+            if there has, Comments will be deleted by site admin.
+        </div><br>
+
+        <div class="mborder" >
+            {% if comment_data is defined %}
+                <h3> All Comments (<span id="rowcount">{{ comment_data | length }}</span>)</h3>
+            {% endif %}
+        </div>
+
+        <!-- COMMENT SECTION ------------------------------------------------------------------------------------------>
+        <div class="comment-box">
+            <table cellspacing="5" style="width: 100%;">
+                <tbody id="commnetTable">
+                {% if comment_data|length != 0 %}
+                    {% for row in comment_data %}
+                        <tr class="rowid-{{ row[0] }}" >
+                            <td>{{ row[1] }}  {{ row[2] }}</td><td class="text-right">{{ row[4] }}</td>
+                            {% if is_admin == True %}
+                                <td rowspan="2" class="text-right">&nbsp;&nbsp;<a onclick="fncdelete('{{ row[0] }}')"><img src="../assets/images/delete.png"></a></td>
+                            {% endif %}
+                        </tr>
+                        <tr class="rowid-{{ row[0] }}"><td colspan="2" style="border-bottom: 1px dotted #101010;">{{ row[3] }}</td></tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ADD COMMENT FORM ----------------------------------------------------------------------------------------->
+        <br><br>
+        <div class="row">
+          <div class="col-md-1">&nbsp;</div>
+          <div class="col-md-2">name:</div>
+          <div class="col-md-9"><input type="text" disabled style="width: 300px;" id="name" name="name" value="{{ firstname }} {{ lastname }}" /></div>
+        </div><br>
+        <div class="row">
+          <div class="col-md-1">&nbsp;</div>
+          <div class="col-md-2">comment*:</div>
+          <div class="col-md-9"><textarea style="width: 300px; height: 150px;" name="commentbox" id="commentbox" ></textarea></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">&nbsp;</div>
+          <div class="col-md-9"><input type="button" name="mSubmit" id="mSubmit" value="Submit" onclick="fncadd();" /></div>
+        </div>
+        <br><br><br>
+    </div>
+
+{% endblock %}
+
+

@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>My login page </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+
+    <div class="container">
+      <h1>Login page</h1>
+      <br>
+
+      {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+              </ul>
+          {% endif %}
+      {% endwith %}
+
+      <form action="" method="post">
+        <input type="text" placeholder="Email address" name="username" value="{{
+          request.form.username }}"><br><br>
+         <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}">
+        <input class="btn btn-default" type="submit" value="Login">
+
+          <br>
+          <a href="#">forgot password</a>&nbsp;&nbsp;&nbsp;
+          <a href="/register">register</a>
+      </form>
+
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

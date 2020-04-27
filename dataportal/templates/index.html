@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block title %}Services{% endblock %}
+{% block css %}
+{{ super() }}
+<style rel="stylesheet">
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<section class="ftco-section ftco-bread">
+    <div class="container">
+        <div class="row no-gutters slider-text justify-content-center align-items-center">
+            <div class="col-md-8 ftco-animate">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Services</span></p>
+                <h1 class="bread">My Services</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 d-flex align-self-stretch ftco-animate" onclick="window.location.href='./trips'">
+                <div class="media block-6 services py-4 d-block">
+                    <div class="d-flex justify-content-start">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <!--							<span class="" style="background-image: url(assets/images/logo.png); "></span>-->
+                            <img src="assets/images/services_route.png" style="width: 60px; height: 60px;">
+                        </div>
+                    </div>
+                    <div class="media-body p-2 mt-2">
+                        <h3 class="heading mb-3">Route</h3>
+                        <p>description text here...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex align-self-stretch ftco-animate" onclick="window.location.href='./stops'">
+                <div class="media block-6 services py-4 d-block">
+                    <div class="d-flex justify-content-start">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <!--							<span class="flaticon-printing-photo"></span>-->
+                            <img src="assets/images/services_pin.png" style="width: 60px; height: 60px;">
+                        </div>
+                    </div>
+                    <div class="media-body p-2 mt-2">
+                        <h3 class="heading mb-3">Stops</h3>
+                        <p>description text here...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services py-4 d-block">
+                    <div class="d-flex justify-content-start">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <span class="flaticon-focusing-target"></span>
+                        </div>
+                    </div>
+                    <div class="media-body p-2 mt-2" style="pointer-event: none; opacity: 0.4;">
+                        <h3 class="heading mb-3">Financial</h3>
+                        <p>description text here...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services py-4 d-block">
+                    <div class="d-flex justify-content-start">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <span class="flaticon-camera"></span>
+                        </div>
+                    </div>
+                    <div class="media-body p-2 mt-2" style="pointer-event: none; opacity: 0.4;">
+                        <h3 class="heading mb-3">Statistical</h3>
+                        <p>description text here...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex align-sel Searchf-stretch ftco-animate">
+                <div class="media block-6 services py-4 d-block">
+                    <div class="d-flex justify-content-start">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <span class="flaticon-polaroid-pictures"></span>
+                        </div>
+                    </div>
+                    <div class="media-body p-2 mt-2" style="pointer-event: none; opacity: 0.4;">
+                        <h3 class="heading mb-3">Cultural</h3>
+                        <p>description text here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+{% block javascript %}
+{{ super() }}
+<script type="text/javascript">
+
+        $(document).ready(function(){
+
+        });
+
+</script>
+{% endblock %}
