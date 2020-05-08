@@ -1,0 +1,82 @@
+﻿<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="shortcut icon"type="image/x-icon" href="data:image/x-icon;,">
+  <title>2525 mk2</title>
+  <script>
+function vc(target,my){
+ document.getElementById(target).value=my.value
+}
+function vt(target,my,ary){
+  document.getElementById(target).value=ary[my.value]
+}
+  </script>
+ </head>
+ <body>
+  <form action="/" method="post">
+   <input type="hidden" name="fid" value="-1">
+   <input type="hidden" name="motion" value="to_left">
+   <table border="1" style="border-collapse: collapse">
+    <tr>
+     <td align="right">text</td>
+     <td>
+      <input type="text" name="text" size="70">
+     </td>
+    </tr>
+    <tr>
+     <td align="right">color</td>
+     <td>
+      <table>
+       <tr>
+        <td>R</td>
+        <td><input type="range" name="color_R" value="0" min="0" max="255" step="1" oninput="vc('Rv',this)" style="width:100%;"></td>
+        <td><output id="Rv">0</output></td>
+       </tr>
+       <tr>
+        <td>G</td>
+        <td><input type="range" name="color_G" value="0" min="0" max="255" step="1" oninput="vc('Gv',this)" style="width:100%;"></td>
+        <td><output id="Gv">0</output></td>
+       </tr>
+       <tr>
+        <td>B</td>
+        <td><input type="range" name="color_B" value="0" min="0" max="255" step="1" oninput="vc('Bv',this)" style="width:100%;"></td>
+        <td><output id="Bv">0</output></td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+    <tr>
+     <td  align="right">speed</td>
+     <td>
+      <input type="range" name="speed" value="1" min="0" max="2" step="1" oninput="vt('Sv',this,['slow','medium','fast'])" style="width:40px;">
+      <output id="Sv">medium</output>
+     </td>
+    </tr>
+    <tr>
+     <td  align="right">size</td>
+     <td>
+      <input type="range" name="size" value="1" min="0" max="2" step="1" oninput="vt('Zv',this,['small','medium','large'])" style="width:40px;">
+      <output id="Zv">medium</output>
+     </td>
+    </tr>
+   </table>
+   <input type="submit" value="send message" style="font-size: 200%;">
+   <input type="reset" value="reset" style="font-size: 200%;">
+  </form>
+  <span  style="font-size: 50%;">&nbsp;</span>
+  <form action="/" method="post">
+   <!-- --> <input type="hidden" name="motion" value="diffusion"> <!-- -->
+   <table border="1" style="border-collapse: collapse">
+    <tr>
+     <td align="right">address</td>
+     <td>
+      <input type="text" name="uri" size="70">
+     </td>
+    </tr>
+   </table>
+   <button name="fid" value="-2" style="font-size: 200%;">send image</button>
+   <input type="reset" value="reset" style="font-size: 200%;"><br/>
+  <!-- -->
+  </form>
+ </body>
+</html>
