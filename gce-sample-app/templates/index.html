@@ -1,0 +1,35 @@
+<html>
+
+<head>
+
+</head>
+
+<tbody>
+    
+    <h2>アプリレポート</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>campaign_id</td>
+                <td>cv数</td>
+                <td>CPI単価</td>
+                <td>課金額</td>
+                <td>ROAS</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row['campaign_id'] }}</td>
+                    <td>{{ row['cv'] }}</td>
+                    <td>{{ row['cpi'] }}</td>
+                    <td>{{ row['revenue'] }}</td>
+                    <td>{{ row['roas'] }}%</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</tbody>
+
+</html>
